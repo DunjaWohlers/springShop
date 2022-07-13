@@ -3,6 +3,7 @@ package com.example.springshop.ordersystem.shop;
 
 import com.example.springshop.ordersystem.shop.order.Order;
 import com.example.springshop.ordersystem.shop.order.OrderRepo;
+import com.example.springshop.ordersystem.shop.order.OrderStatus;
 import com.example.springshop.ordersystem.shop.product.Product;
 import com.example.springshop.ordersystem.shop.product.ProductRepo;
 import org.springframework.stereotype.Service;
@@ -32,14 +33,14 @@ public class ShopService {
         return productRepo.listProducts();
     }
 
-    public void addOrder(int orderId, List<Integer> productIds) {
+    public void addOrder(int orderId, List<Integer> productIds,  OrderStatus orderStatus   ) {
         List<Product> products = new ArrayList<>();
         for (int productId : productIds) {
             Product product = productRepo.getProduct(productId);
             products.add(product);
         }
 
-        Order order = new Order(orderId, products);
+        Order order = new Order(orderId, products, orderStatus);
         orderRepo.addOrder(order);
     }
 

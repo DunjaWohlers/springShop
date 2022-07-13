@@ -2,6 +2,7 @@ package com.example.springshop.ordersystem.shop;
 
 import com.example.springshop.ordersystem.shop.order.Order;
 import com.example.springshop.ordersystem.shop.order.OrderRepo;
+import com.example.springshop.ordersystem.shop.order.OrderStatus;
 import com.example.springshop.ordersystem.shop.product.Product;
 import com.example.springshop.ordersystem.shop.product.ProductRepo;
 import org.junit.jupiter.api.Test;
@@ -64,12 +65,12 @@ class ShopServiceTest {
 
         ShopService shopService= new ShopService(productRepo,orderRepo);
         //when
-        shopService.addOrder(1,List.of(1,3,4));
+        shopService.addOrder(1,List.of(1,3,4), OrderStatus.CANCELED);
         Order expected = new Order(1, List.of(
                 new Product(1, "Apfel"),
                 new Product(3, "Zitrone"),
                 new Product(4, "Mandarine")
-        ));
+        ),OrderStatus.CANCELED);
         //then
         verify(orderRepo).addOrder(expected);
 

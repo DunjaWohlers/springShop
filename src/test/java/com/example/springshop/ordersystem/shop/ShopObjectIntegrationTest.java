@@ -5,6 +5,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMockMvc;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.http.MediaType;
+import org.springframework.test.annotation.DirtiesContext;
 import org.springframework.test.web.servlet.MockMvc;
 
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
@@ -20,13 +21,14 @@ public class ShopObjectIntegrationTest {
     @Autowired
     MockMvc mockMvc;
 
+    @DirtiesContext
     @Test
     void putAndGetOneOrder() throws Exception {
         mockMvc.perform(
                         post("/api/orders/")
                                 .contentType(MediaType.APPLICATION_JSON)
                                 .content("""
-                                        [1,2]
+                                        [1,2,1]
                                         """
                                 )
                 )
@@ -40,16 +42,7 @@ public class ShopObjectIntegrationTest {
                 .andExpect(status().isOk())
                 .andExpect(content().json(
                         """
-                {"id": 1,
-                "products":[
-                                {
-                                "id": 1,
-                                "name":  "Apfel"},
-                                {
-                                "id": 2,
-                                "name":  "Banane"}
-                                ]
-                     }
+            {"id":1,"products":[{"id":1,"name":"Apfel"},{"id":2,"name":"Banane"},{"id":1,"name":"Apfel"}],"orderStatus":"IN_PROGRESS"}
                                 """
                 ));
 

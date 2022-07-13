@@ -3,6 +3,7 @@ package com.example.springshop.ordersystem;
 
 import com.example.springshop.ordersystem.shop.ShopService;
 import com.example.springshop.ordersystem.shop.order.Order;
+import com.example.springshop.ordersystem.shop.order.OrderStatus;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -31,7 +32,8 @@ public class orderClass {
     public void setOrders(@RequestBody List<Integer> idS) {
         counter++;
         System.out.println(counter);
-        shopService.addOrder(counter,idS);
+        OrderStatus orderStatus=OrderStatus.IN_PROGRESS;
+        shopService.addOrder(counter,idS , orderStatus);
     }
 
 
