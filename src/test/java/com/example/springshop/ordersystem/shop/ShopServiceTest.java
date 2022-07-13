@@ -11,6 +11,7 @@ import java.util.List;
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.mockito.Mockito.*;
 
+
 class ShopServiceTest {
 
     @Test
@@ -61,30 +62,18 @@ class ShopServiceTest {
         when(productRepo.getProduct(3)).thenReturn(new Product(3, "Zitrone"));
         when(productRepo.getProduct(4)).thenReturn(new Product(4, "Mandarine"));
 
-       // when(orderRepo.addOrder(
-        //        new Order(1,List.of( //????
-        //            new Product(1, "Apfel"),
-        //            new Product(3, "Zitrone"),
-        //            new Product(4, "Mandarine")
-        //        ))
-        //);
-
         ShopService shopService= new ShopService(productRepo,orderRepo);
         //when
         shopService.addOrder(1,List.of(1,3,4));
-        //verifizieren, ob Order an orderRepo übergeben wird
-
-        //List<Order> actual = shopService.listOrders();
         Order expected = new Order(1, List.of(
                 new Product(1, "Apfel"),
                 new Product(3, "Zitrone"),
                 new Product(4, "Mandarine")
         ));
-
-        verify(orderRepo).addOrder(expected);
         //then
+        verify(orderRepo).addOrder(expected);
 
-        // assertThat(actual).hasSameElementsAs(expected).hasSize(expected.size());
+        //assertThat(actual).hasSameElementsAs(expected).hasSize(expected.size());
         //assertThat(actual).isEqualTo(expected);
     }
 }

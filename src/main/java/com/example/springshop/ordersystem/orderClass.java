@@ -23,13 +23,14 @@ public class orderClass {
         return shopService.listOrders();
     }
 
-    @GetMapping(path={"id"})
+    @GetMapping(path="{id}")
     public Order getOrder(@PathVariable int id) {
         return shopService.getOrder(id);
     }
     @PostMapping()
     public void setOrders(@RequestBody List<Integer> idS) {
         counter++;
+        System.out.println(counter);
         shopService.addOrder(counter,idS);
     }
 
